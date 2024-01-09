@@ -12,4 +12,8 @@ Every year, hundreds of people begin the new year with a resolution to more cons
 I am going to use the required technologies in the following ways.
 - **HTML:** Three HTML pages. One page to log in, one page to view friends requests, and one page to view and add journal entries.
 - **CSS:** Styling the pages in a way that is consistent and simple across all three pages and various different devices.
-- **JavaScript:** Provides login, navigating between pages
+- **JavaScript:** Allows login, navigating between pages, applying friending and unfriending, and saving journal entries.
+- **Service:** Login, retrieving journal entries, allows for friend requests
+- **Database:** Stores user login information, friend network, and journal entries. Credentials stored here as well. Secures the application.
+- **WebSocket:** As friends write journal entries, their statuses will update in real time
+- **React:** The application will be refactored to use React elements
