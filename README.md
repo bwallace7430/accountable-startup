@@ -19,3 +19,10 @@ I am going to use the required technologies in the following ways.
 - **Database:** Stores user login information, friend network, and journal entries. Credentials stored here as well. Secures the application.
 - **WebSocket:** As friends write journal entries, their statuses will update in real time
 - **React:** The application will be refactored to use React elements
+
+## HTML Deliverable
+In this deliverable, I coded markup for my site in HTML.
+- **HTML pages:** I coded up 3 HTML pages. One is the landing page, where users will log in or create a profile. The second is the journaling page, where users will create and edit journal entries. The third is the friends page, where users can view which friends have journaled and add new friends.
+- **Links:** The landing page redirects the user to the journaling page when the user clicks the "Log in" button. The journaling and friend pages both have nav bars with links to each of the other pages (with the link to the landing page being the "Log out" button).
+- **DB/Login:** I included an input box for username and password, and buttons for either creating an account or logging in. The authenication of users will happen through the database. The months and days on the journaling page will have a journaling entry associated with them that can be pulled from the database. If the current date is chosen - as it is in my html placeholders - there will be a text area where the user can write their journal entry. The friends list included on the friends page also represents data that will be pulled out of the database.
+- **WebSocket:** The checkboxes represent the realtime reporting of whether a user has written or not.
