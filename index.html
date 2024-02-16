@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8" />
-    <title>Accountable Home Page</title>
+    <title>Accountable</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <h2>Accountable</h2>
-                <img src="Logo.png" alt="Accountable logo" width="108" height="85" />
-            </div>
-        </nav>
-        <hr />
+        <img src="Logo.png" alt="Accountable logo" width="108" height="85" />
+        <h2>Accountable</h2>
     </header>
     <main>
         <h1>
-            Accountable
+            Log In
         </h1>
-        <label for="usernameInput">
-            Username:
-        </label>
-        <input type="text" id="usernameInput" placeholder="email@email.com">
-        <label for="passwordInput">
-            Password:
-        </label>
-        <input type="text" id="passwordInput" placeholder="password">
-        <button>Create</button>
-        <button><a href="journal.html">Log In</a></button>
+        <div class="logInFields">
+            <div class="inputBox">
+                <label for="usernameInput">
+                    Username:
+                </label>
+                <input type="text" id="usernameInput" placeholder="Email Address">
+            </div>
+            <div class="inputBox">
+                <label for="passwordInput">
+                    Password:
+                </label>
+                <input type="text" id="passwordInput" placeholder="Password">
+            </div>
+        </div>
+        <div class="logInButtons">
+            <button>Create</button>
+            <button><a href="journal.html">Log In</a></button>
+        </div>
         <hr />
     </main>
     <footer>
         <div>Brynne Henderson</div>
-        <div>https://github.com/bwallace7430</div>
+        |
+        <a href="https://github.com/bwallace7430/startup">https://github.com/bwallace7430/startup</a>
     </footer>
 </body>
 
