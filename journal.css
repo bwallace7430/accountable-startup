@@ -6,7 +6,7 @@
 html,
 body {
     min-height: 100vh;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 body {
@@ -16,6 +16,10 @@ body {
 
 img {
     padding: 1rem;
+}
+
+h2 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 header {
@@ -97,7 +101,44 @@ footer {
     padding: 10px;
 }
 
-a:visited {
-    color: #0e343d;
+.top_nav_item {
+    color: #f4bc67;
     text-decoration: none;
+    padding-top: 46px;
+    padding-bottom: 46px;
+    padding-left: 60px;
+    padding-right: 60px;
+    font-weight: bolder;
+    font-size: 1.25rem;
+}
+
+.top_nav_item:hover {
+    color: #fff;
+    background-color: #75bba7;
+}
+
+.spacer {
+    flex: 1;
+}
+
+span {
+    color: #f4bc67;
+    display: flex;
+    align-items: center;
+    font-style: italic;
+}
+
+nav {
+    width: 100%;
+}
+
+menu {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.log_out_button {
+    margin-left: 20px;
+    margin-right: 20px;
 }
