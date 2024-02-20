@@ -8,6 +8,12 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 img {
     padding: 1rem;
 }
@@ -23,15 +29,16 @@ header {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    border-bottom: solid thick #75bba7;
 }
 
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: center;
-    flex: 1;
     color: #0e343d;
+    flex: 1;
 }
 
 button {
@@ -42,6 +49,7 @@ button {
     width: 200px;
     height: 50px;
     margin: 15px;
+    margin-bottom: 30px;
     border-radius: 8px;
     border: solid;
     box-shadow: none;
@@ -95,6 +103,7 @@ span {
     display: flex;
     align-items: center;
     font-style: italic;
+    margin-right: 20px;
 }
 
 nav {
@@ -107,13 +116,30 @@ menu {
     width: 100%;
 }
 
-.log_out_button {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
 ul {
     list-style-type: none;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: [sunday] 1fr [monday] 1fr [tuesday] 1fr [wednesday] 1fr [thursday] 1fr [friday] 1fr [saturday] 1fr [end];
+    grid-template-rows: [month] 25% [days] 1fr [row1] 1fr [row2] 1fr [row3] 1fr [row4] 1fr [row5] 1fr [last-line];
+    grid-template-areas:
+        "month month month month month month month"
+        "none none none none none none none"
+        "none none none none none none none"
+        "none none none none none none none"
+        "none none none none none none none"
+        "none none none none none none none"
+        "none none none none none none none";
+    color: #0e343d;
+    align-items: center;
+    justify-content: center;
+    border: solid thin #0e343d;
+    margin-top: 50px;
+    margin-left: 50px;
+    border-radius: 4px;
+    border: solid thin rgb(0 0 0 /0.2)
 }
 
 .month {
@@ -121,15 +147,12 @@ ul {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 75%;
-    margin-top: 50px;
     font-size: 36px;
     height: 100px;
     background-color: #75BBA7;
     color: #fff;
     font-weight: bolder;
-    border: solid thin #0e343d;
-    border-bottom: none;
+    grid-area: month;
 }
 
 .previous {
@@ -141,36 +164,71 @@ ul {
 }
 
 .day_names {
-    background-color: #fff;
-    display: flex;
-    flex-direction: row;
-    gap: 130px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 87px;
-    padding-right: 87px;
+    display: contents;
     font-weight: bold;
     color: #817F82;
-    border: solid thin #0e343d;
-    border-top: none;
+    text-align: center;
+}
+
+.day_names li {
+    align-self: flex-start;
+    padding: 8px;
 }
 
 .calendar_days {
-    width: 75%;
+    display: contents;
 }
 
 .calendar_days li {
-    display: grid;
-    width: 13.6%;
     text-align: center;
+    vertical-align: middle;
     margin-bottom: 5px;
-    font-size: 12px;
+    font-size: 16px;
     color: #777;
 }
 
-/* Highlight the "current" day */
-.days li .active {
+.active {
     padding: 5px;
-    background: #1abc9c;
+    background: #0e343d;
     color: white !important
+}
+
+.left_pane {
+    flex: 1;
+}
+
+.right_pane {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    align-items: center;
+}
+
+textarea {
+    resize: none;
+    overflow: scroll;
+    width: 90%;
+    height: 100%;
+    margin: 50px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 4px;
+    border: solid thin rgb(0 0 0 /0.2)
+}
+
+p {
+    width: 50%;
+    margin: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    line-height: 1.5rem;
+}
+
+h3 {
+    text-align: center;
+    padding-top: 50px;
 }

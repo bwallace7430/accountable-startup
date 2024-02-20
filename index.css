@@ -25,6 +25,7 @@ header {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    border-bottom: solid thick #75bba7;
 }
 
 main {
