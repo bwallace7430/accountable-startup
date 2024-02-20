@@ -5,13 +5,7 @@
 
 html,
 body {
-    min-height: 100vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}
-
-body {
-    display: flex;
-    flex-flow: column;
 }
 
 img {
@@ -40,21 +34,6 @@ main {
     color: #0e343d;
 }
 
-h1 {
-    margin-bottom: 2rem;
-    font-size: 3rem;
-}
-
-.logInFields {
-    display: flex;
-    flex-direction: column;
-}
-
-.logInButtons {
-    display: flex;
-    flex-direction: row;
-}
-
 button {
     background-color: #fff;
     color: #0e343d;
@@ -79,16 +58,6 @@ button:hover {
 
 label {
     display: none;
-}
-
-input {
-    margin: 8px;
-    padding: 8px;
-    width: 410px;
-    height: 30px;
-    border-radius: 8px;
-    border: 1px solid gray;
-    font-size: large;
 }
 
 footer {
@@ -141,4 +110,67 @@ menu {
 .log_out_button {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.month {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin-top: 50px;
+    font-size: 36px;
+    height: 100px;
+    background-color: #75BBA7;
+    color: #fff;
+    font-weight: bolder;
+    border: solid thin #0e343d;
+    border-bottom: none;
+}
+
+.previous {
+    padding-left: 50px;
+}
+
+.next {
+    padding-right: 50px;
+}
+
+.day_names {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    gap: 130px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 87px;
+    padding-right: 87px;
+    font-weight: bold;
+    color: #817F82;
+    border: solid thin #0e343d;
+    border-top: none;
+}
+
+.calendar_days {
+    width: 75%;
+}
+
+.calendar_days li {
+    display: grid;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Highlight the "current" day */
+.days li .active {
+    padding: 5px;
+    background: #1abc9c;
+    color: white !important
 }
