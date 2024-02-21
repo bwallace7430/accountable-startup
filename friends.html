@@ -3,49 +3,52 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Journal Page</title>
+    <title>Friend's Page</title>
+    <link rel="stylesheet" href="friends.css">
 </head>
 
 <body>
     <header>
+        <img class="logo_img" src="Logo.png" alt="Accountable logo" width="108" height="85" />
+        <h2 class="logo_text">Accountable</h2>
+        |
         <nav>
-            <div class="logo">
-                <h2>Accountable</h2>
-                <img src="Logo.png" alt="Accountable logo" width="108" height="85" />
-            </div>
-            <div> User's Name</div>
             <menu>
-                <li><a href="friends.html">Friends</a></li>
-                <li><a href="journal.html">Journal</a></li>
-                <li><a href="index.html">Log Out</a></li>
+                <a class="top_nav_item" href="friends.html">Friends</a>
+                <a class="top_nav_item" href="journal.html">Journal</a>
+                <span class="spacer"></span>
+                <span> Abigail's Journal</span>
+                <a class="top_nav_item log_out_button" href="index.html">Log Out</a>
             </menu>
         </nav>
-        <hr />
     </header>
     <main>
-        <ul>
-            My Friends
-            <li><input type="checkbox" title="This friend has written today" disabled checked> Brittney</li>
-            <li><input type="checkbox" title="This friend has written today" disabled checked> Taylor</li>
-            <li><input type="checkbox" title="This friend has not written today" disabled>Imhotep</li>
-            <li><input type="checkbox" title="This friend has not written today" disabled>Lord Scotland</li>
-            <li><input type="checkbox" title="This friend has written today" disabled checked>Rhianna</li>
-            <li><input type="checkbox" title="This friend has not written today" disabled>Galileo</li>
-            <li><input type="checkbox" title="This friend has written today" disabled checked>Georgie</li>
-            <li><input type="checkbox" title="This friend has not written today" disabled>Sarah</li>
-            <li><input type="checkbox" title="This friend has written today" disabled checked>Jefferson</li>
-            <li><input type="checkbox" title="This friend has not written today" disabled>Oliver</li>
-            <li><input type="checkbox" title="This friend has written today" disabled checked>Esme</li>
-        </ul>
-        <h1>
-            Add Friend
-        </h1>
-        <label for="usernameInput">
-            Username:
-        </label>
-        <input type="text" id="usernameInput" placeholder="email@email.com">
-        <button>Add</button>
-        <hr />
+        <section class="left_pane">
+            <ul>
+                My Friends
+                <li><input type="checkbox" title="This friend has written today" disabled checked> Brittney</li>
+                <li><input type="checkbox" title="This friend has written today" disabled checked> Taylor</li>
+                <li><input type="checkbox" title="This friend has not written today" disabled>Imhotep</li>
+                <li><input type="checkbox" title="This friend has not written today" disabled>Lord Scotland</li>
+                <li><input type="checkbox" title="This friend has written today" disabled checked>Rhianna</li>
+                <li><input type="checkbox" title="This friend has not written today" disabled>Galileo</li>
+                <li><input type="checkbox" title="This friend has written today" disabled checked>Georgie</li>
+                <li><input type="checkbox" title="This friend has not written today" disabled>Sarah</li>
+                <li><input type="checkbox" title="This friend has written today" disabled checked>Jefferson</li>
+                <li><input type="checkbox" title="This friend has not written today" disabled>Oliver</li>
+                <li><input type="checkbox" title="This friend has written today" disabled checked>Esme</li>
+            </ul>
+        </section>
+        <section class="right_pane">
+            <h1>
+                Add Friend
+            </h1>
+            <label for="usernameInput">
+                Username:
+            </label>
+            <input type="text" id="usernameInput" placeholder="email@email.com">
+            <button>Add</button>
+        </section>
     </main>
     <footer>
         <div>Brynne Henderson</div>
