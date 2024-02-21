@@ -98,7 +98,10 @@ footer {
     padding: 10px;
 }
 
+a {
+    text-decoration: none;
+}
+
 a:visited {
     color: #0e343d;
-    text-decoration: none;
 }
