@@ -126,6 +126,7 @@ footer {
     flex-direction: column;
     flex: 2;
     align-items: center;
+    justify-content: center;
 }
 
 ul {
@@ -169,4 +170,25 @@ h3 {
 
 .friends_list {
     width: 50%;
+}
+
+.username {
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: smaller;
+    color: #817F82;
+}
+
+input {
+    margin-top: 8px;
+    padding: 8px;
+    width: 410px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    font-size: large;
 }
