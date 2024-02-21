@@ -94,6 +94,7 @@ button {
     font-weight: bold;
     transition-duration: 0.4s;
     font-size: .75rem;
+    cursor: pointer;
 }
 
 button:hover {
