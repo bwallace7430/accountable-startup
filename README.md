@@ -28,3 +28,12 @@ In this deliverable, I coded markup for my site in HTML.
 - **Image:** I included a logo image that will be in the header on each of my pages.
 - **DB/Login:** I included an input box for username and password, and buttons for either creating an account or logging in. The authenication of users will happen through the database. The months and days on the journaling page will have a journaling entry associated with them that can be pulled from the database. If the current date is chosen - as it is in my html placeholders - there will be a text area where the user can write their journal entry. The friends list included on the friends page also represents data that will be pulled out of the database.
 - **WebSocket:** The checkboxes represent the realtime reporting of whether a user has written or not.
+
+## CSS Deliverable
+In this deliverable, I styled each page on my site in CSS.
+- **Sections:** I created 3 stylesheets, one for each page of my site. Each stylesheet has a header, body, and footer section.
+- **Nav Bar:** I styled the navigation elements to appear as buttons and other properly stlyled elements. These navigation elements include the login button, the friends section of the nav bar, the journal section of the nav bar, and the logout section of the nav bar.
+- **Resizing:** Each page is reponsive to resizing, and elements in the body will move and shrink as necessary to fit the screen.
+- **Application Elements:** The page has consistent styling and colors, and a good use of white space.
+- **Application Text:** The font sizes and styles are consistent across the site and intuitively hint to their use.
+- **Logo Image:** There is a logo image on the left end of each nav bar that is properly styled and sized.
