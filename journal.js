@@ -35,7 +35,9 @@ function display_calendar() {
     }
     let last_date = new Date(curr_date.getFullYear(), curr_date.getMonth() + 1, 0).getDate()
     for (let i = 0; i < last_date - 1; i++) {
-        let day = document.createElement("li");
+        let day = document.createElement("a");
+        day.href = "#";
+        //day.onclick = load_journal_entry
         if (i + 1 == curr_date.getDate()) {
             day.className = "active";
         }

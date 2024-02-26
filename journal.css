@@ -233,3 +233,12 @@ h3 {
     text-align: center;
     padding-top: 50px;
 }
+
+.calendar_days a {
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #777;
+    text-decoration: none;
+}
