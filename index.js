@@ -1,5 +1,9 @@
 function login() {
-    const email = document.getElementById('emailInput').value;
-    localStorage.setItem("email", email);
+    const username = document.getElementById('usernameInput').value;
+    if (username === "") {
+        window.alert("Please enter a username.")
+        return
+    }
+    localStorage.setItem("username", username);
     window.location.href = "journal.html";
 }
