@@ -1,4 +1,4 @@
-const month_nums = {
+const monthNums = {
     0: "January",
     1: "February",
     2: "March",
@@ -13,44 +13,50 @@ const month_nums = {
     11: "December"
 }
 
-addEventListener("load", setup_page);
+let activeDate = new Date;
+addEventListener("load", setupPage);
 
-function setup_page() {
-    display_user_name();
-    display_calendar();
+function setupPage() {
+    displayUserName();
+    displayCalendar();
 }
 
-function display_user_name() {
+function displayUserName() {
     document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
 }
 
-function load_journal_entry(day) {
-    let date = day.getDate();
-    localStorage.getItem(date);
-    day.className = "active";
+function loadJournalEntry(date) {
+    console.log(date);
+    let entry = localStorage.getItem(date.toString());
+    document.getElementById('journalEntry').value = entry;
 }
 
-function display_calendar() {
-    let curr_date = new Date();
-    let curr_month = month_nums[curr_date.getMonth()]
-    let first_date = new Date();
-    first_date.setDate(1);
-    document.querySelector('#month_name').innerHTML = curr_month
-    for (let i = 0; i < first_date.getDay(); i++) {
+function displayCalendar() {
+    let currDate = new Date();
+    let currMonth = monthNums[currDate.getMonth()]
+    let firstDate = new Date();
+    firstDate.setDate(1);
+    document.querySelector('#month_name').innerHTML = currMonth;
+    for (let i = 0; i < firstDate.getDay(); i++) {
         document.querySelector('#dates_of_month').appendChild(document.createElement("li"));
     }
-    let last_date = new Date(curr_date.getFullYear(), curr_date.getMonth() + 1, 0).getDate()
-    for (let i = 0; i < last_date - 1; i++) {
+    let lastDate = new Date(currDate.getFullYear(), currDate.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < lastDate - 1; i++) {
         let day = document.createElement("a");
         day.href = "#";
-        day.onclick = () => load_journal_entry(this)
-        if (i + 1 == curr_date.getDate()) {
+        day.onclick = () => { loadJournalEntry(new Date(currDate.getFullYear(), currDate.getMonth(), i + 1)); }
+        if (i + 1 == currDate.getDate()) {
             day.className = "active";
         }
         day.innerHTML = i + 1;
         document.querySelector('#dates_of_month').appendChild(day);
     }
 
+}
+
+function addEntry() {
+    let entry = document.getElementById('journalEntry').value;
+    localStorage.setItem(activeDate.toString(), entry);
 }
 
 
