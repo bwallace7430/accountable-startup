@@ -37,3 +37,10 @@ In this deliverable, I styled each page on my site in CSS.
 - **Application Elements:** The page has consistent styling and colors, and a good use of white space.
 - **Application Text:** The font sizes and styles are consistent across the site and intuitively hint to their use.
 - **Logo Image:** There is a logo image on the left end of each nav bar that is properly styled and sized.
+
+## JS Deliverable
+In this deliverable, I made my site interactive, designed to mimic the way users will interact with the site.
+- **Login:** The login requires a username that is then displayed in the top right corner of the journal and friend's pages. A password is not required currently, but the create user and login buttons both lead to the journal page.
+- **Database Data:** The calendar on the journal page is completely interactive and has entries stored in localstorage for the current date, February 12th, and January 5th. The user can create an entry on any day, and it will be saved in local storage. There is a dummy list of friends on the friends page, and any friend that is added using "Add Friend" will be added to local storage.
+- **WebSocket:** The friends page has a list of friends that each start out with a gray indicator (to mark them as not having journaled). Every five seconds, a single indicator is randomly selected on an interval timer to turn green, which simulates the realtime update of friends that have written.
+- **Interaction Logic:** A user is able to select a given date on the calendar on the journal page. That date will highlight to indicate that it is actively selected. The user can also toggle back and forth between months to look at previous journal entries.
