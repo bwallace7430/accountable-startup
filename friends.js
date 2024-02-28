@@ -1,10 +1,15 @@
 addEventListener("load", setupPage);
 
 function setupPage() {
+    displayUserName();
     if (localStorage.getItem("friendsList") === null) {
         localStorage.setItem("friendsList", JSON.stringify(["Imhotep", "Lord Scotland", "Abraham Lincoln", "Rhianna", "Oliver", "Esme", "My Favorite TA"]));
     }
     displayList();
+}
+
+function displayUserName() {
+    document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
 }
 
 function displayList() {
