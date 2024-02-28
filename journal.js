@@ -24,6 +24,12 @@ function display_user_name() {
     document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
 }
 
+function load_journal_entry(day) {
+    let date = day.getDate();
+    localStorage.getItem(date);
+    day.className = "active";
+}
+
 function display_calendar() {
     let curr_date = new Date();
     let curr_month = month_nums[curr_date.getMonth()]
@@ -37,7 +43,7 @@ function display_calendar() {
     for (let i = 0; i < last_date - 1; i++) {
         let day = document.createElement("a");
         day.href = "#";
-        //day.onclick = load_journal_entry
+        day.onclick = () => load_journal_entry(this)
         if (i + 1 == curr_date.getDate()) {
             day.className = "active";
         }
