@@ -13,12 +13,12 @@ const monthNums = {
     11: "December"
 }
 
-let activeDate = new Date;
+let activeDate = new Date();
 addEventListener("load", setupPage);
 
 function setupPage() {
     displayUserName();
-    displayCalendar();
+    displayCalendar(new Date(activeDate.getFullYear(), activeDate.getMonth(), 1));
     if (localStorage.getItem(activeDate.toDateString) == null) {
         localStorage.setItem(activeDate.toDateString(), "This is an example journal entry. Feel free to replace it!");
     }
@@ -28,7 +28,7 @@ function setupPage() {
     }
     lastMonth = (new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, 5)).toDateString();
     if (localStorage.getItem(lastMonth) === null) {
-        localStorage.setItem(lastMonth, "Never gonna give you up, never gonna let you down, never gonna run around and desert you");
+        localStorage.setItem(lastMonth, "Never gonna give you up, never gonna let you down, never gonna run around and desert you.");
     }
     loadJournalEntry(activeDate);
 }
@@ -43,30 +43,29 @@ function loadJournalEntry(date) {
     document.getElementById('journalEntry').value = entry;
 }
 
-function displayCalendar() {
+function displayCalendar(date) {
     let currDate = new Date();
-    let currMonth = monthNums[currDate.getMonth()]
-    let firstDate = new Date();
-    firstDate.setDate(1);
-    document.querySelector('#month_name').innerHTML = currMonth;
+    let activeMonth = monthNums[activeDate.getMonth()];
+    let firstDate = new Date(activeDate.getFullYear(), activeDate.getMonth(), 1);
+    document.querySelector('#month_name').innerHTML = activeMonth;
+    document.querySelector('#dates_of_month').replaceChildren();
     for (let i = 0; i < firstDate.getDay(); i++) {
         document.querySelector('#dates_of_month').appendChild(document.createElement("li"));
     }
-    let lastDate = new Date(currDate.getFullYear(), currDate.getMonth() + 1, 0).getDate();
-    for (let i = 0; i < lastDate - 1; i++) {
+    let lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < lastDate; i++) {
         let day = document.createElement("a");
         day.href = "#";
         day.onclick = () => {
-            let selectedDate = new Date(currDate.getFullYear(), currDate.getMonth(), i + 1);
+            let selectedDate = new Date(firstDate.getFullYear(), firstDate.getMonth(), i + 1);
             loadJournalEntry(selectedDate);
             activeDate = selectedDate;
             for (let element of document.getElementsByClassName("active")) {
                 element.className = "";
             }
             day.className = "active";
-
         }
-        if (i + 1 == currDate.getDate()) {
+        if (i + 1 == activeDate.getDate()) {
             day.className = "active";
         }
         day.innerHTML = i + 1;
@@ -80,5 +79,13 @@ function addEntry() {
     localStorage.setItem(activeDate.toDateString(), entry);
 }
 
+function previousMonth() {
+    activeDate = new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, activeDate.getDate());
+    displayCalendar(activeDate);
+}
 
+function nextMonth() {
+    activeDate = new Date(activeDate.getFullYear(), activeDate.getMonth() + 1, activeDate.getDate());
+    displayCalendar(activeDate);
+}
 //when page loads get current date. use to build out calendar (add children to grid container based on current month)

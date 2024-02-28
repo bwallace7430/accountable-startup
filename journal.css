@@ -156,14 +156,6 @@ ul {
     grid-area: month;
 }
 
-.previous {
-    padding-left: 50px;
-}
-
-.next {
-    padding-right: 50px;
-}
-
 .day_names {
     display: contents;
     font-weight: bold;
@@ -241,4 +233,21 @@ h3 {
     font-size: 16px;
     color: #777;
     text-decoration: none;
+}
+
+#next {
+    padding-right: 50px;
+}
+
+#previous {
+    padding-left: 50px;
+}
+
+.arrows {
+    text-decoration: none;
+    color: rgb(255 255 255 / 0.7)
+}
+
+.arrows:hover {
+    color: #fff
 }
