@@ -19,6 +19,18 @@ addEventListener("load", setupPage);
 function setupPage() {
     displayUserName();
     displayCalendar();
+    if (localStorage.getItem(activeDate.toDateString) == null) {
+        localStorage.setItem(activeDate.toDateString(), "This is an example journal entry. Feel free to replace it!");
+    }
+    twelfth = (new Date(activeDate.getFullYear(), activeDate.getMonth(), 12)).toDateString();
+    if (localStorage.getItem(twelfth) === null) {
+        localStorage.setItem(twelfth, "Today I worked on my CS 260 project. It is so so so good! Like really above expectations, truly. The TAs are so so so impressed! In fact they're so impressed that they were just about to give me a 100%... right? ;)");
+    }
+    lastMonth = (new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, 5)).toDateString();
+    if (localStorage.getItem(lastMonth) === null) {
+        localStorage.setItem(lastMonth, "Never gonna give you up, never gonna let you down, never gonna run around and desert you");
+    }
+    loadJournalEntry(activeDate);
 }
 
 function displayUserName() {
@@ -27,7 +39,7 @@ function displayUserName() {
 
 function loadJournalEntry(date) {
     console.log(date);
-    let entry = localStorage.getItem(date.toString());
+    let entry = localStorage.getItem(date.toDateString());
     document.getElementById('journalEntry').value = entry;
 }
 
@@ -44,7 +56,16 @@ function displayCalendar() {
     for (let i = 0; i < lastDate - 1; i++) {
         let day = document.createElement("a");
         day.href = "#";
-        day.onclick = () => { loadJournalEntry(new Date(currDate.getFullYear(), currDate.getMonth(), i + 1)); }
+        day.onclick = () => {
+            let selectedDate = new Date(currDate.getFullYear(), currDate.getMonth(), i + 1);
+            loadJournalEntry(selectedDate);
+            activeDate = selectedDate;
+            for (let element of document.getElementsByClassName("active")) {
+                element.className = "";
+            }
+            day.className = "active";
+
+        }
         if (i + 1 == currDate.getDate()) {
             day.className = "active";
         }
@@ -56,7 +77,7 @@ function displayCalendar() {
 
 function addEntry() {
     let entry = document.getElementById('journalEntry').value;
-    localStorage.setItem(activeDate.toString(), entry);
+    localStorage.setItem(activeDate.toDateString(), entry);
 }
 
 
