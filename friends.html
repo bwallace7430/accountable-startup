@@ -27,40 +27,7 @@
         <section class="left_pane">
             <div class="friends_list">
                 <h3>My Friends</h3>
-                <ul>
-                    <li><span class="friend_activity_indicator active"></span>
-                        <p>Brittney</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Taylor</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Imhotep</p>
-                    </li>
-                    <li><span class="friend_activity_indicator active"></span>
-                        <p>Lord Scotland</p>
-                    </li>
-                    <li><span class="friend_activity_indicator active"></span>
-                        <p>Rhianna</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Galileo</p>
-                    </li>
-                    <li><span class="friend_activity_indicator active"></span>
-                        <p>Georgie</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Sarah</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Jefferson</p>
-                    </li>
-                    <li><span class="friend_activity_indicator active"></span>
-                        <p>Oliver</p>
-                    </li>
-                    <li><span class="friend_activity_indicator inactive"></span>
-                        <p>Esme</p>
-                    </li>
+                <ul id="friends">
                 </ul>
             </div>
         </section>
@@ -71,7 +38,7 @@
                 </label>
                 <input type="text" id="username_input" placeholder="user@email.com">
             </div>
-            <button>Add Friend</button>
+            <button onclick="createFriend()">Add Friend</button>
         </section>
     </main>
     <footer>
