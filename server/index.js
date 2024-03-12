@@ -1,31 +1,39 @@
-const express = require('express')
-import * as data from './data';
+import express from 'express';
+import * as data from './data.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const server = express();
 const PORT = 8080;
 
 server.use(express.json());
+server.use(express.static(path.join(__dirname, 'public')));
 
 var apiRouter = express.Router();
 server.use(`/api`, apiRouter);
 
-server.post('/users', (req, res) => {
+apiRouter.post('/users', (req, res) => {
     try {
         const { username, password } = req.body
-        data.createUser(username, password)
-        res.sendStatus(200)
+        let userid = data.createUser(username, password)
+        res.status(200).json({ userid })
     }
-    catch {
+    catch (e) {
+        console.log(e);
         res.status(400).json({
             message: "Username already taken."
         })
     }
 });
 
-server.post('/sessions', (req, res) => {
+apiRouter.post('/sessions', (req, res) => {
     try {
         const { username, password } = req.body
-        let authToken = data.createSession(username, password)
-        res.status(200).json({ token: authToken })
+        let userid = data.createSession(username, password)
+        res.status(200).json({ userid })
     }
     catch {
         res.status(400).json({
@@ -34,14 +42,14 @@ server.post('/sessions', (req, res) => {
     }
 });
 
-server.post('/users/:userid/entries', (req, res) => {
+apiRouter.post('/users/:userid/entries', (req, res) => {
     const { day, entry } = req.body
     const { userid } = req.params;
     data.createEntry(userid, day, entry)
     res.sendStatus(200)
 });
 
-server.get('/users/:userid/entries', (req, res) => {
+apiRouter.get('/users/:userid/entries', (req, res) => {
     try {
         const { day } = req.query
         const { userid } = req.params
@@ -55,7 +63,7 @@ server.get('/users/:userid/entries', (req, res) => {
     }
 });
 
-server.get('/users/:userid/friends', (req, res) => {
+apiRouter.get('/users/:userid/friends', (req, res) => {
     try {
         const { userid } = req.params
         let friends = data.getFriends(userid)
@@ -68,14 +76,12 @@ server.get('/users/:userid/friends', (req, res) => {
     }
 });
 
-server.post("/users/:userid/friends", (req, res) => {
+apiRouter.post("/users/:userid/friends", (req, res) => {
     const { friendUsername } = req.body
     const { userid } = req.params
     data.addFriend(userid, friendUsername)
     res.sendStatus(200)
 });
-
-server.use(express.static('public'));
 
 // Start the server
 server.listen(PORT, () => {

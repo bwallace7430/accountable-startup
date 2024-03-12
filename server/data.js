@@ -8,6 +8,7 @@ export function createUser(username, password) {
     idCounter += 1;
     if (!users.find((user) => user.username === username)) {
         users.push({ userId: idCounter, username: username, password: password });
+        return idCounter;
     }
     else {
         throw new Error("Username already taken.")
@@ -24,7 +25,11 @@ export function createSession(username, password) {
     }
     let authToken = generateAuthToken()
     authTokens.push({ username: username, authToken: authToken });
-    return authToken
+    return user.userId;
+}
+
+function generateAuthToken() {
+    return "good"
 }
 
 export function createEntry(userId, day, entry) {

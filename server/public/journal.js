@@ -19,17 +19,6 @@ addEventListener("load", setupPage);
 function setupPage() {
     displayUserName();
     displayCalendar(new Date(activeDate.getFullYear(), activeDate.getMonth(), 1));
-    if (localStorage.getItem(activeDate.toDateString) == null) {
-        localStorage.setItem(activeDate.toDateString(), "This is an example journal entry. Feel free to replace it!");
-    }
-    twelfth = (new Date(activeDate.getFullYear(), activeDate.getMonth(), 12)).toDateString();
-    if (localStorage.getItem(twelfth) === null) {
-        localStorage.setItem(twelfth, "Today I worked on my CS 260 project. It is so so so good! Like really above expectations, truly. The TAs are so so so impressed! In fact they're so impressed that they were just about to give me a 100%... right? ;)");
-    }
-    lastMonth = (new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, 5)).toDateString();
-    if (localStorage.getItem(lastMonth) === null) {
-        localStorage.setItem(lastMonth, "Never gonna give you up, never gonna let you down, never gonna run around and desert you.");
-    }
     loadJournalEntry(activeDate);
 }
 
@@ -37,9 +26,14 @@ function displayUserName() {
     document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
 }
 
-function loadJournalEntry(date) {
-    console.log(date);
-    let entry = localStorage.getItem(date.toDateString());
+async function loadJournalEntry(date) {
+    let userid = localStorage.getItem('userid');
+    let response = await fetch(`/api/users/${userid}/entries?day=${date.toDateString()}`)
+    if (!response.ok) {
+        document.getElementById('journalEntry').value = "";
+        return
+    }
+    let { entry } = await response.json();
     document.getElementById('journalEntry').value = entry;
 }
 
@@ -74,9 +68,16 @@ function displayCalendar(date) {
 
 }
 
-function addEntry() {
+async function addEntry() {
+    let userid = localStorage.getItem('userid');
     let entry = document.getElementById('journalEntry').value;
-    localStorage.setItem(activeDate.toDateString(), entry);
+    let day = activeDate.toDateString()
+
+    await fetch(`/api/users/${userid}/entries`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ day, entry })
+    })
 }
 
 function previousMonth() {
