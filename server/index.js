@@ -35,14 +35,24 @@ server.post('/sessions', (req, res) => {
 });
 
 server.post('/users/:userid/entries', (req, res) => {
-    const { username, day, entry } = req.body
-    data.createEntry(username, day, entry)
-    res.status(200)
+    const { day, entry } = req.body
+    const { userId } = req.params;
+    data.createEntry(userId, day, entry)
+    res.sendStatus(200)
 });
 
 server.get('/users/:userid/entries', (req, res) => {
-    data.getUserEntries(userid, day, entry)
-    res.status(200)
+    try {
+        const { day } = req.query
+        const { userId } = req.params
+        let entry = data.getUserEntry(userId, day)
+        res.status(200).json({ entry })
+    }
+    catch {
+        res.status(400).json({
+            message: "No entries found."
+        })
+    }
 });
 
 server.get('/users/:userid/friends', (req, res) => {

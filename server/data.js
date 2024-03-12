@@ -26,7 +26,20 @@ export function createSession(username, password) {
     return authToken
 }
 
-export function createEntry(username, day, entry) {
-    let allEntries = entries[username]
-    allEntries.push({ day: day, entry: entry });
+export function createEntry(userId, day, entry) {
+    if (!entries[userId]) {
+        entries[userId] = {}
+    }
+    let allEntries = entries[userId]
+    allEntries[day] = entry;
+}
+
+export function getUserEntry(userId, day) {
+    if (!entries[userId]) {
+        throw new Error("User has no entries")
+    }
+    if (!entries[userId][day]) {
+        throw new Error("Day has no entry")
+    }
+    return entries[userId][day]
 }
