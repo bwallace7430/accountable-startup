@@ -1,6 +1,7 @@
 const users = [];
 const authTokens = [];
 const entries = {};
+const friends = {};
 let idCounter = 0;
 
 export function createUser(username, password) {
@@ -42,4 +43,19 @@ export function getUserEntry(userId, day) {
         throw new Error("Day has no entry")
     }
     return entries[userId][day]
+}
+
+export function addFriend(userId, friendUsername) {
+    if (!friends[userId]) {
+        friends[userId] = []
+    }
+    let allFriends = friends[userId]
+    allFriends[userId].append(friendUsername)
+}
+
+export function getFriends(userId) {
+    if (!friends[userId]) {
+        throw new Error("User has no friends")
+    }
+    return friends[userId]
 }

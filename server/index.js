@@ -36,16 +36,16 @@ server.post('/sessions', (req, res) => {
 
 server.post('/users/:userid/entries', (req, res) => {
     const { day, entry } = req.body
-    const { userId } = req.params;
-    data.createEntry(userId, day, entry)
+    const { userid } = req.params;
+    data.createEntry(userid, day, entry)
     res.sendStatus(200)
 });
 
 server.get('/users/:userid/entries', (req, res) => {
     try {
         const { day } = req.query
-        const { userId } = req.params
-        let entry = data.getUserEntry(userId, day)
+        const { userid } = req.params
+        let entry = data.getUserEntry(userid, day)
         res.status(200).json({ entry })
     }
     catch {
@@ -56,13 +56,23 @@ server.get('/users/:userid/entries', (req, res) => {
 });
 
 server.get('/users/:userid/friends', (req, res) => {
-    data.getFriends(userid, friends)
-    res.status(200)
+    try {
+        const { userid } = req.params
+        let friends = data.getFriends(userid)
+        res.status(200)
+    }
+    catch {
+        res.status(400).json({
+            message: "No friends found."
+        })
+    }
 });
 
 server.post("/users/:userid/friends", (req, res) => {
-    data.createFriend(userid, friends)
-    res.status(200)
+    const { friendUsername } = req.body
+    const { userid } = req.params
+    data.addFriend(userid, friendUsername)
+    res.sendStatus(200)
 });
 
 server.use(express.static('public'));
