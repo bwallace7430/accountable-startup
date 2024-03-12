@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const server = express();
-const PORT = 8080;
+const PORT = process.argv.length > 2 ? process.argv[2] : 3000;
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, 'public')));
