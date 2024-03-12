@@ -67,7 +67,7 @@ apiRouter.get('/users/:userid/friends', (req, res) => {
     try {
         const { userid } = req.params
         let friends = data.getFriends(userid)
-        res.status(200)
+        res.status(200).json({ friends })
     }
     catch {
         res.status(400).json({

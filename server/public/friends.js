@@ -12,9 +12,14 @@ function displayUserName() {
     document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
 }
 
-function displayList() {
-    let friendsList = JSON.parse(localStorage.getItem("friendsList"));
-    for (let friend of friendsList) {
+async function displayList() {
+    let userid = localStorage.getItem('userid');
+    let response = await fetch(`/api/users/${userid}/friends`)
+    if (!response.ok) {
+        return
+    }
+    let { friends } = await response.json();
+    for (let friend of friends) {
         addFriendToDisplay(friend)
     }
 }
@@ -27,12 +32,17 @@ function addFriendToDisplay(friend) {
     p.innerHTML = friend;
 }
 
-function createFriend() {
-    let friendsList = JSON.parse(localStorage.getItem("friendsList"));
-    let newFriend = document.getElementById('username_input').value;
-    friendsList.push(newFriend);
-    localStorage.setItem("friendsList", JSON.stringify(friendsList));
-    addFriendToDisplay(newFriend);
+async function createFriend() {
+    let userid = localStorage.getItem('userid');
+    let friendUsername = document.getElementById('username_input').value;
+
+    await fetch(`/api/users/${userid}/friends`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ friendUsername })
+    })
+
+    addFriendToDisplay(friendUsername);
 }
 
 setInterval(() => {

@@ -55,7 +55,7 @@ export function addFriend(userId, friendUsername) {
         friends[userId] = []
     }
     let allFriends = friends[userId]
-    allFriends[userId].append(friendUsername)
+    allFriends.push(friendUsername)
 }
 
 export function getFriends(userId) {
