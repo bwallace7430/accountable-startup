@@ -12,6 +12,7 @@ const monthNums = {
     10: "November",
     11: "December"
 }
+const api_url = "https://type.fit/api/quotes";
 
 let activeDate = new Date();
 addEventListener("load", setupPage);
@@ -20,6 +21,7 @@ function setupPage() {
     displayUserName();
     displayCalendar(new Date(activeDate.getFullYear(), activeDate.getMonth(), 1));
     loadJournalEntry(activeDate);
+    getQuote(api_url);
 }
 
 function displayUserName() {
@@ -88,5 +90,13 @@ function previousMonth() {
 function nextMonth() {
     activeDate = new Date(activeDate.getFullYear(), activeDate.getMonth() + 1, activeDate.getDate());
     displayCalendar(activeDate);
+}
+
+async function getQuote(url) {
+    const response = await fetch(url);
+    var data = await response.json();
+    let index = Math.floor(Math.random() * data.length)
+    let { text, author } = data[index];
+    document.getElementById("quote").textContent = `"${text}" - ${author.split(",")[0]}`;
 }
 //when page loads get current date. use to build out calendar (add children to grid container based on current month)
