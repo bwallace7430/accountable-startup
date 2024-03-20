@@ -2,10 +2,26 @@ import express from 'express';
 import * as data from './data.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import config from './dbConfig.json' with { type: "json" };
+import { MongoClient } from 'mongodb';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//connect to mongodb
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const client = new MongoClient(url);
+const db = client.db('accountable');
+
+(async function testConnection() {
+    await client.connect();
+    await db.command({ ping: 1 });
+})().catch((ex) => {
+    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    process.exit(1);
+});
+
+// configure the server
 const server = express();
 const PORT = process.argv.length > 2 ? process.argv[2] : 3000;
 
