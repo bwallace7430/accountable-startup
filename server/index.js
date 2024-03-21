@@ -2,24 +2,9 @@ import express from 'express';
 import * as data from './data.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import config from './dbConfig.json' with { type: "json" };
-import { MongoClient } from 'mongodb';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-//connect to mongodb
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
-const client = new MongoClient(url);
-const db = client.db('accountable');
-
-(async function testConnection() {
-    await client.connect();
-    await db.command({ ping: 1 });
-})().catch((ex) => {
-    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-    process.exit(1);
-});
 
 // configure the server
 const server = express();
@@ -45,11 +30,21 @@ apiRouter.post('/users', (req, res) => {
     }
 });
 
+function setAuthCookie(res, authToken) {
+    res.cookie('token', authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
+
 apiRouter.post('/sessions', (req, res) => {
     try {
-        const { username, password } = req.body
-        let userid = data.createSession(username, password)
-        res.status(200).json({ userid })
+        const { username, password } = req.body;
+        // go through program and replace uses of userid
+        let authToken = data.createSession(username, password);
+        setAuthCookie(res, authToken);
+        res.status(200).json({ userid });
     }
     catch {
         res.status(400).json({

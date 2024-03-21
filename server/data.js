@@ -1,35 +1,50 @@
 const users = [];
-const authTokens = [];
 const entries = {};
 const friends = {};
-let idCounter = 0;
 
-export function createUser(username, password) {
-    idCounter += 1;
-    if (!users.find((user) => user.username === username)) {
-        users.push({ userId: idCounter, username: username, password: password });
-        return idCounter;
+const userCollection = client.db('authTest').collection('user');
+const entryCollection = client.db('authTest').collection('entry');
+const friendCollection = client.db('authTest').collection('friend');
+
+export async function getUser() {
+    return userCollection.findOne({ username: username });
+}
+
+export async function createUser(username, password) {
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    if (!(await getUser(username))) {
+        const user = {
+            username: username,
+            password: passwordHash,
+            token: generateAuthToken()
+        };
+        await userCollection.insertOne(user);
     }
     else {
         throw new Error("Username already taken.")
     }
 }
 
-export function createSession(username, password) {
-    let user = users.find((user) => user.username === username)
+export async function createSession(username, password) {
+
+    let user = await getUser(username)
     if (!user) {
         throw new Error("User not found")
     }
-    if (!user.password === password) {
+    let passwordHash = await bcrypt.hash(password, 10);
+    if (!user.password === passwordHash) {
         throw new Error("Password is incorrect")
     }
-    let authToken = generateAuthToken()
-    authTokens.push({ username: username, authToken: authToken });
-    return user.userId;
+
+    let authToken = generateAuthToken();
+    userCollection.updateOne({ username: username }, { $set: { token: authToken } })
+    user = await getUser(username)
+    return user.authToken;
 }
 
 function generateAuthToken() {
-    return "good"
+    return uuid.v4()
 }
 
 export function createEntry(userId, day, entry) {
