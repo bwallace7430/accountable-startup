@@ -37,14 +37,17 @@ function addFriendToDisplay(friend) {
 
 async function createFriend() {
     let friendUsername = document.getElementById('username_input').value;
-
-    await fetch(`/api/my/friends`, {
+    let response = await fetch(`/api/my/friends`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ friendUsername })
     })
-
-    addFriendToDisplay(friendUsername);
+    if (response.ok) {
+        addFriendToDisplay(friendUsername);
+    }
+    else {
+        window.alert("That friend does not exist.")
+    }
 }
 
 setInterval(() => {

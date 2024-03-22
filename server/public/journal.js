@@ -28,7 +28,8 @@ async function setupPage() {
 
 async function loadUser() {
     let response = await fetch("/api/users/me");
-    user = (await response.json()).user;
+    let json = await response.json();
+    user = json.user;
 }
 
 function displayUserName() {
@@ -37,12 +38,12 @@ function displayUserName() {
 
 async function loadJournalEntry(date) {
     let response = await fetch(`/api/my/entries?day=${date.toDateString()}`)
-    if (!response.ok) {
+    let { entry } = await response.json();
+    if (!entry) {
         document.getElementById('journalEntry').value = "";
         return
     }
-    let { entry } = await response.json();
-    document.getElementById('journalEntry').value = entry;
+    document.getElementById('journalEntry').value = entry.entry;
 }
 
 function displayCalendar(date) {

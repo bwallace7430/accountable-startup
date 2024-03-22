@@ -23,7 +23,8 @@ export async function getUser(username) {
 }
 
 export async function getUserByAuthToken(authToken) {
-    return await collection.findOne({ token: authToken });
+    let user = await userCollection.findOne({ token: authToken });
+    return user;
 }
 
 export async function createUser(username, password) {
@@ -50,8 +51,7 @@ export async function createSession(username, password) {
     if (!user) {
         throw new Error("User not found");
     }
-    let passwordHash = await bcrypt.hash(password, 10);
-    if (!user.password === passwordHash) {
+    if (!await bcrypt.compare(password, user.password)) {
         throw new Error("Password is incorrect");
     }
 
@@ -71,7 +71,7 @@ export async function createEntry(username, day, entry) {
         date: day,
         entry: entry
     };
-    return await entryCollection.insertOne(newEntry);
+    return await entryCollection.updateOne({ username: username, date: day }, { $set: newEntry }, { upsert: true });
 }
 
 export async function getUserEntry(username, day) {

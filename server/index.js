@@ -26,25 +26,24 @@ function setAuthCookie(res, authToken) {
     });
 }
 
-apiRouter.post('/users', (req, res) => {
+apiRouter.post('/users', async (req, res) => {
     try {
-        const { username, password } = req.body
-        let user = data.createUser(username, password)
-        setAuthCookie(res, user.authToken)
-        res.status(200).json({ username })
+        const { username, password } = req.body;
+        let user = await data.createUser(username, password);
+        setAuthCookie(res, user.token);
+        res.status(200).json({ username });
     }
     catch (e) {
-        console.log(e);
         res.status(400).json({
             message: "Username already taken."
         })
     }
 });
 
-apiRouter.post('/sessions', (req, res) => {
+apiRouter.post('/sessions', async (req, res) => {
     try {
         const { username, password } = req.body;
-        let authToken = data.createSession(username, password);
+        let authToken = await data.createSession(username, password);
         setAuthCookie(res, authToken);
         res.status(200).json({ username });
     }
@@ -55,9 +54,9 @@ apiRouter.post('/sessions', (req, res) => {
     }
 });
 
-apiRouter.use((req, res, next) => {
-    authToken = req.cookies['token'];
-    let user = data.getUserByAuthToken(authToken);
+apiRouter.use(async (req, res, next) => {
+    let authToken = req.cookies['token'];
+    let user = await data.getUserByAuthToken(authToken);
     if (!user) {
         res.status(401).json({ message: "Unauthorized" })
         return;
@@ -71,31 +70,31 @@ apiRouter.get('/users/me', (req, res) => {
     res.status(200).json({ user })
 });
 
-apiRouter.post('/my/entries', (req, res) => {
+apiRouter.post('/my/entries', async (req, res) => {
     let user = req.user;
-    const { day, entry } = req.body
-    data.createEntry(user.username, day, entry)
-    res.sendStatus(200)
+    const { day, entry } = req.body;
+    await data.createEntry(user.username, day, entry);
+    res.sendStatus(200);
 });
 
-apiRouter.get('/my/entries', (req, res) => {
+apiRouter.get('/my/entries', async (req, res) => {
     let user = req.user;
-    const { day } = req.query
-    let entry = data.getUserEntry(user.username, day)
-    res.status(200).json({ entry })
+    const { day } = req.query;
+    let entry = await data.getUserEntry(user.username, day);
+    res.status(200).json({ entry });
 });
 
-apiRouter.get('/my/friends', (req, res) => {
+apiRouter.get('/my/friends', async (req, res) => {
     let user = req.user;
-    let friends = data.getFriends(user.username);
+    let friends = await data.getFriends(user.username);
     res.status(200).json({ friends });
 });
 
-apiRouter.post("/my/friends", (req, res) => {
+apiRouter.post("/my/friends", async (req, res) => {
     let user = req.user
     const { friendUsername } = req.body
     try {
-        data.addFriend(user.username, friendUsername)
+        await data.addFriend(user.username, friendUsername)
         res.sendStatus(200)
     }
     catch {
