@@ -29,8 +29,7 @@ function displayUserName() {
 }
 
 async function loadJournalEntry(date) {
-    let userid = localStorage.getItem('userid');
-    let response = await fetch(`/api/users/${userid}/entries?day=${date.toDateString()}`)
+    let response = await fetch(`/api/my/entries?day=${date.toDateString()}`)
     if (!response.ok) {
         document.getElementById('journalEntry').value = "";
         return
@@ -71,11 +70,10 @@ function displayCalendar(date) {
 }
 
 async function addEntry() {
-    let userid = localStorage.getItem('userid');
     let entry = document.getElementById('journalEntry').value;
     let day = activeDate.toDateString()
 
-    await fetch(`/api/users/${userid}/entries`, {
+    await fetch(`/api/my/entries`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ day, entry })

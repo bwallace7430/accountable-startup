@@ -13,8 +13,7 @@ function displayUserName() {
 }
 
 async function displayList() {
-    let userid = localStorage.getItem('userid');
-    let response = await fetch(`/api/users/${userid}/friends`)
+    let response = await fetch(`/api/my/friends`)
     if (!response.ok) {
         return
     }
@@ -33,10 +32,9 @@ function addFriendToDisplay(friend) {
 }
 
 async function createFriend() {
-    let userid = localStorage.getItem('userid');
     let friendUsername = document.getElementById('username_input').value;
 
-    await fetch(`/api/users/${userid}/friends`, {
+    await fetch(`/api/my/friends`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ friendUsername })

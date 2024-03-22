@@ -44,7 +44,6 @@ apiRouter.post('/users', (req, res) => {
 apiRouter.post('/sessions', (req, res) => {
     try {
         const { username, password } = req.body;
-        // go through program and replace uses of userid
         let authToken = data.createSession(username, password);
         setAuthCookie(res, authToken);
         res.status(200).json({ username });

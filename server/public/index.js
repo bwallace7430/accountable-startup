@@ -12,10 +12,8 @@ async function login() {
         body: JSON.stringify({ username, password })
     })
     if (response.ok) {
-        let { userid } = await response.json();
-
+        //TO DO: store this in a cookie or something.
         localStorage.setItem("username", username);
-        localStorage.setItem("userid", userid);
 
         window.location.href = "journal.html";
     }
@@ -40,10 +38,8 @@ async function createUser() {
             body: JSON.stringify({ username, password })
         })
 
-        let { userid } = await response.json()
+        //TO DO: Also store this in a cookie or whatnot
         localStorage.setItem("username", username);
-        localStorage.setItem("userid", userid);
-
         window.location.href = "journal.html";
     }
     catch {
