@@ -13,19 +13,26 @@ const monthNums = {
     11: "December"
 }
 const api_url = "https://type.fit/api/quotes";
+let user = null;
 
 let activeDate = new Date();
 addEventListener("load", setupPage);
 
-function setupPage() {
+async function setupPage() {
+    await loadUser();
     displayUserName();
     displayCalendar(new Date(activeDate.getFullYear(), activeDate.getMonth(), 1));
     loadJournalEntry(activeDate);
     getQuote(api_url);
 }
 
+async function loadUser() {
+    let response = await fetch("/api/users/me");
+    user = (await response.json()).user;
+}
+
 function displayUserName() {
-    document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
+    document.querySelector('#users_journal_tag').innerHTML = user.username + "'s Journal"
 }
 
 async function loadJournalEntry(date) {

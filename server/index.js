@@ -66,6 +66,11 @@ apiRouter.use((req, res, next) => {
     next();
 });
 
+apiRouter.get('/users/me', (req, res) => {
+    let user = req.user;
+    res.status(200).json({ user })
+});
+
 apiRouter.post('/my/entries', (req, res) => {
     let user = req.user;
     const { day, entry } = req.body

@@ -6,15 +6,16 @@ async function login() {
         window.alert("Please enter a username.")
         return
     }
+    if (password === "") {
+        window.alert("Please enter a password.")
+        return
+    }
     let response = await fetch('/api/sessions', {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ username, password })
     })
     if (response.ok) {
-        //TO DO: store this in a cookie or something.
-        localStorage.setItem("username", username);
-
         window.location.href = "journal.html";
     }
     else {
@@ -30,6 +31,10 @@ async function createUser() {
         window.alert("Please enter a username.")
         return
     }
+    if (password === "") {
+        window.alert("Please enter a password.")
+        return
+    }
 
     try {
         let response = await fetch('/api/users', {
@@ -37,9 +42,6 @@ async function createUser() {
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ username, password })
         })
-
-        //TO DO: Also store this in a cookie or whatnot
-        localStorage.setItem("username", username);
         window.location.href = "journal.html";
     }
     catch {

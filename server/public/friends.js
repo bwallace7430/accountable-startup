@@ -1,15 +1,19 @@
 addEventListener("load", setupPage);
+let user = null;
 
-function setupPage() {
+async function setupPage() {
+    await loadUser()
     displayUserName();
-    if (localStorage.getItem("friendsList") === null) {
-        localStorage.setItem("friendsList", JSON.stringify(["Imhotep", "Lord Scotland", "Abraham Lincoln", "Rhianna", "Oliver", "Esme", "My Favorite TA"]));
-    }
     displayList();
 }
 
+async function loadUser() {
+    let response = await fetch("/api/users/me");
+    user = (await response.json()).user;
+}
+
 function displayUserName() {
-    document.querySelector('#users_journal_tag').innerHTML = localStorage.getItem("username") + "'s Journal"
+    document.querySelector('#users_journal_tag').innerHTML = user.username + "'s Journal";
 }
 
 async function displayList() {
