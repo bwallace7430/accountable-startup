@@ -1,8 +1,12 @@
 const userCollection = client.db('authTest').collection('user');
 const entryCollection = client.db('authTest').collection('entry');
 
-export async function getUser() {
+export async function getUser(username) {
     return userCollection.findOne({ username: username });
+}
+
+export async function getUserByAuthToken(authToken) {
+    return await collection.findOne({ token: authToken });
 }
 
 export async function createUser(username, password) {

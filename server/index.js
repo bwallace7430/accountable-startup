@@ -54,38 +54,35 @@ apiRouter.post('/sessions', (req, res) => {
     }
 });
 
-apiRouter.post('/users/:userid/entries', (req, res) => {
+apiRouter.use((req, res, next) => {
+    authToken = req.cookies['token'];
+    let user = data.getUserByAuthToken(authToken);
+    if (!user) {
+        res.status(401).json({ message: "Unauthorized" })
+        return;
+    }
+    req.user = user;
+    next();
+});
+
+apiRouter.post('/my/entries', (req, res) => {
+    let user = req.user;
     const { day, entry } = req.body
-    const { userid } = req.params;
-    data.createEntry(userid, day, entry)
+    data.createEntry(user.username, day, entry)
     res.sendStatus(200)
 });
 
-apiRouter.get('/users/:userid/entries', (req, res) => {
-    try {
-        const { day } = req.query
-        const { userid } = req.params
-        let entry = data.getUserEntry(userid, day)
-        res.status(200).json({ entry })
-    }
-    catch {
-        res.status(400).json({
-            message: "No entries found."
-        })
-    }
+apiRouter.get('/my/entries', (req, res) => {
+    let user = req.user;
+    const { day } = req.query
+    let entry = data.getUserEntry(user.username, day)
+    res.status(200).json({ entry })
 });
 
-apiRouter.get('/users/:userid/friends', (req, res) => {
-    try {
-        const { userid } = req.params
-        let friends = data.getFriends(userid)
-        res.status(200).json({ friends })
-    }
-    catch {
-        res.status(400).json({
-            message: "No friends found."
-        })
-    }
+apiRouter.get('/my/friends', (req, res) => {
+    let user = req.user;
+    let friends = data.getFriends(user.username);
+    res.status(200).json({ friends });
 });
 
 apiRouter.post("/users/:userid/friends", (req, res) => {
