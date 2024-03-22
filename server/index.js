@@ -85,11 +85,17 @@ apiRouter.get('/my/friends', (req, res) => {
     res.status(200).json({ friends });
 });
 
-apiRouter.post("/users/:userid/friends", (req, res) => {
+apiRouter.post("/my/friends", (req, res) => {
+    let user = req.user
     const { friendUsername } = req.body
-    const { userid } = req.params
-    data.addFriend(userid, friendUsername)
-    res.sendStatus(200)
+    try {
+        data.addFriend(user.username, friendUsername)
+        res.sendStatus(200)
+    }
+    catch {
+        res.status(400).json({ message: "User does not exist." })
+        return;
+    }
 });
 
 // Start the server
