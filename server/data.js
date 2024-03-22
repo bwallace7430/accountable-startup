@@ -1,3 +1,20 @@
+import * as uuid from 'uuid';
+import bcrypt from 'bcrypt';
+import config from './dbConfig.json' with { type: "json" };
+import { MongoClient } from 'mongodb';
+
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const client = new MongoClient(url);
+const db = client.db('accountable');
+
+(async function testConnection() {
+    await client.connect();
+    await db.command({ ping: 1 });
+})().catch((ex) => {
+    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    process.exit(1);
+});
+
 const userCollection = client.db('authTest').collection('user');
 const entryCollection = client.db('authTest').collection('entry');
 
