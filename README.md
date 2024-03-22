@@ -51,3 +51,12 @@ In this deliverable, I created a service using Node.js and Express
 - **Third Party Endpoints:** There is a daily quote on the journaling page that is called from type.fit's quote API.
 - **Backend Endpoints:** There are backend endpoints for creating a user, logging in, creating a journal entry, getting a journal entry, adding a friend, and getting a friend's list.
 - **Frontend Service Calls:** Each page of the site has a couple service calls made using fetch.
+
+## Login Deliverable
+In this deliverable, I connected my site to a database.
+- **MongoDB Atlas:** I created a database with associated collections to store my data.
+- **Data Storage:** All persistent data is stored in the Mongo database
+- **User Registration:** Users can create an account that will be persistently stored.
+- **Existing Users:** Users can access all previous entries on the calendar day they were written for.
+- **Credential Storage:** Mongo DB stores authentication information, along with all user information and journaling entries.
+- **Functionality Restriction:** A user can only log in if they have registered, and can only journal and add friends if they've logged in.
