@@ -16,6 +16,7 @@ export async function createUser(username, password) {
             friends: []
         };
         await userCollection.insertOne(user);
+        return user;
     }
     else {
         throw new Error("Username already taken.");

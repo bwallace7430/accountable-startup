@@ -16,11 +16,20 @@ server.use(express.static(path.join(__dirname, 'public')));
 var apiRouter = express.Router();
 server.use(`/api`, apiRouter);
 
+function setAuthCookie(res, authToken) {
+    res.cookie('token', authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
+
 apiRouter.post('/users', (req, res) => {
     try {
         const { username, password } = req.body
-        let userid = data.createUser(username, password)
-        res.status(200).json({ userid })
+        let user = data.createUser(username, password)
+        setAuthCookie(res, user.authToken)
+        res.status(200).json({ username })
     }
     catch (e) {
         console.log(e);
@@ -30,21 +39,13 @@ apiRouter.post('/users', (req, res) => {
     }
 });
 
-function setAuthCookie(res, authToken) {
-    res.cookie('token', authToken, {
-        secure: true,
-        httpOnly: true,
-        sameSite: 'strict',
-    });
-}
-
 apiRouter.post('/sessions', (req, res) => {
     try {
         const { username, password } = req.body;
         // go through program and replace uses of userid
         let authToken = data.createSession(username, password);
         setAuthCookie(res, authToken);
-        res.status(200).json({ userid });
+        res.status(200).json({ username });
     }
     catch {
         res.status(400).json({
