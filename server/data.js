@@ -1,7 +1,9 @@
 import * as uuid from 'uuid';
 import bcrypt from 'bcrypt';
-import config from './dbConfig.json' with { type: "json" };
+import { createRequire } from "module";
 import { MongoClient } from 'mongodb';
+const require = createRequire(import.meta.url);
+const config = require("./dbConfig.json");
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
