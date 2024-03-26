@@ -2,26 +2,24 @@ const { WebSocketServer } = require('ws');
 const uuid = require('uuid');
 
 function peerProxy(httpServer) {
-    // Create a websocket object
     const wss = new WebSocketServer({ noServer: true });
 
-    // Handle the protocol upgrade from HTTP to WebSocket
     httpServer.on('upgrade', (request, socket, head) => {
         wss.handleUpgrade(request, socket, head, function done(ws) {
             wss.emit('connection', ws, request);
         });
     });
 
-    // Keep track of all the connections so we can forward messages
     let connections = [];
 
     wss.on('connection', (ws) => {
         const connection = { id: uuid.v4(), alive: true, ws: ws };
         connections.push(connection);
 
-        // Forward messages to everyone except the sender
-        ws.on('message', function message(data) {
-            connections.forEach((c) => {
+        // search through all users to find the users that follow User.
+        //if any users follow User and have an open websocket, update the written status.
+        ws.on('message', function sendWrittenStatus(recipients, data) {
+            recipients.forEach((c) => {
                 if (c.id !== connection.id) {
                     c.ws.send(data);
                 }
@@ -61,5 +59,4 @@ module.exports = { peerProxy };
 
 
 
-//TO DO : when User logs on, get the "written" status of all User's friends. when User writes, search through all users to find the users that follow User.
-//if any users follow User and have an open websocket, update the written status 
+//TO DO : when User logs on, get the "written" status of all User's friends. when User writes

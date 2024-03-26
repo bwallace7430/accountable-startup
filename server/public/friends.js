@@ -31,6 +31,7 @@ function addFriendToDisplay(friend) {
     let li = document.querySelector('#friends').appendChild(document.createElement("li"));
     let span = li.appendChild(document.createElement("span"));
     span.className = "friend_activity_indicator inactive";
+    span.dataset.username = friend;
     let p = li.appendChild(document.createElement('p'));
     p.innerHTML = friend;
 }
@@ -46,13 +47,24 @@ async function createFriend() {
         addFriendToDisplay(friendUsername);
     }
     else {
-        window.alert("That friend does not exist.")
+        window.alert("That friend does not exist.");
     }
 }
 
-setInterval(() => {
-    let inactiveFriends = document.querySelectorAll('.inactive');
-    if (inactiveFriends.length === 0) { return; }
-    let randomInactive = inactiveFriends.item(Math.random() * inactiveFriends.length);
-    randomInactive.className = "friend_activity_indicator active";
-}, 5000);
+function configureWebSocket() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    this.socket.onopen = (event) => {
+        console.log("Sup")
+    };
+    this.socket.onmessage = async (activeUser) => {
+        document.querySelector("[data-username=" + activeUser + "]").className = "friend_activity_indicator active";
+    };
+}
+
+// setInterval(() => {
+//     let inactiveFriends = document.querySelectorAll('.inactive');
+//     if (inactiveFriends.length === 0) { return; }
+//     let randomInactive = inactiveFriends.item(Math.random() * inactiveFriends.length);
+//     randomInactive.className = "friend_activity_indicator active";
+// }, 5000);
