@@ -1,6 +1,7 @@
 import { WebSocketServer } from 'ws';
 import * as uuid from 'uuid';
-import { getFollowers } from './data';
+import { getFollowers, getUserByAuthToken } from './data.js';
+import e from 'express';
 
 let connections = [];
 
@@ -13,11 +14,19 @@ export function serverSideWebSocket(httpServer) {
         });
     });
 
-    wss.on('connection', (ws) => {
-        const connection = { id: uuid.v4(), alive: true, ws: ws };
+    wss.on('connection', async (ws, request) => {
+        const authToken = request.headers.cookie.split("=")[1];
+        console.log("authToken: ");
+        console.log(authToken);
+
+        let user = await getUserByAuthToken(authToken);
+        let username = user.username;
+        const connection = { id: uuid.v4(), alive: true, ws: ws, username: username };
         connections.push(connection);
 
-        ws.on('message', () => { })
+        ws.on('message', (message) => {
+
+        })
         // get the data out of the websocket message (username of person connected)
         // find websocket in connection array
         // add the username to the connection in the connection array
@@ -50,13 +59,20 @@ export function serverSideWebSocket(httpServer) {
     }, 10000);
 }
 
-async function notifyFollowers(username) {
+export async function notifyFollowers(username) {
+    console.log("username is: " + username);
     let followers = await getFollowers(username);
-    let followerUsernames = followers.map((follower) => follower.username)
+    let followerUsernames = followers.map((follower) => follower.username);
+    console.log("all followers: ");
+    console.log(followerUsernames);
     // find all users that follow User
+
+    console.log("all connections: ");
+    console.log(connections);
     connections.forEach((connection) => {
         if (followerUsernames.includes(connection.username)) {
             connection.ws.send(username);
+            console.log("follower has been notified.");
         }
     })
     // get all connections that belong to users^^

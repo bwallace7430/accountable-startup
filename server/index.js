@@ -3,7 +3,7 @@ import * as data from './data.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser'
-import { serverSideWebSocket } from './webSocket.js'
+import { serverSideWebSocket, notifyFollowers } from './webSocket.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -75,7 +75,8 @@ apiRouter.post('/my/entries', async (req, res) => {
     let user = req.user;
     const { day, entry } = req.body;
     await data.createEntry(user.username, day, entry);
-    notifyFriends();
+    notifyFollowers(user.username);
+    console.log("in the post request. followers have been notified");
     res.sendStatus(200);
 });
 

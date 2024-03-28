@@ -58,10 +58,15 @@ function configureWebSocket() {
     this.socket.onopen = () => {
         /*  "token=futftif67f679697f9;" */
         authToken = document.cookie.split("=")[1];
+        console.log("cookie is: ");
+        console.log(document.cookie);
+        console.log("authToken is: ");
+        console.log(authToken);
         this.socket.send(authToken)
     };
     this.socket.onmessage = async (event) => {
         let activeUser = event.data;
+        console.log(activeUser);
         document.querySelector("[data-username=" + activeUser + "]").className = "friend_activity_indicator active";
     };
 }

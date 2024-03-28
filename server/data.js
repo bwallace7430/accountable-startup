@@ -93,7 +93,7 @@ export async function getFriends(username) {
 }
 
 export async function getFollowers(username) {
-    return await userCollection.find({ friends: username })
+    return (await userCollection.find({ friends: username })).toArray();
 }
 
 export async function deleteSession(username) {
