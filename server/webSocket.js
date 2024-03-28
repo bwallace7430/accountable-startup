@@ -1,7 +1,7 @@
-const { WebSocketServer } = require('ws');
-const uuid = require('uuid');
+import { WebSocketServer } from 'ws';
+import * as uuid from 'uuid';
 
-function peerProxy(httpServer) {
+export function serverSideWebSocket(httpServer) {
     const wss = new WebSocketServer({ noServer: true });
 
     httpServer.on('upgrade', (request, socket, head) => {
@@ -17,7 +17,8 @@ function peerProxy(httpServer) {
         connections.push(connection);
 
         // search through all users to find the users that follow User.
-        //if any users follow User and have an open websocket, update the written status.
+        // if any users follow User and have an open websocket, update the written status.
+        // ask Jonah how to do this
         ws.on('message', function sendWrittenStatus(recipients, data) {
             recipients.forEach((c) => {
                 if (c.id !== connection.id) {
@@ -34,7 +35,6 @@ function peerProxy(httpServer) {
                 connections.splice(pos, 1);
             }
         });
-
         // Respond to pong messages by marking the connection alive
         ws.on('pong', () => {
             connection.alive = true;
@@ -54,9 +54,5 @@ function peerProxy(httpServer) {
         });
     }, 10000);
 }
-
-module.exports = { peerProxy };
-
-
 
 //TO DO : when User logs on, get the "written" status of all User's friends. when User writes

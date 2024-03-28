@@ -3,6 +3,7 @@ import * as data from './data.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser'
+import { serverSideWebSocket } from './webSocket.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -104,7 +105,7 @@ apiRouter.post("/my/friends", async (req, res) => {
 });
 
 // Start the server
-server.listen(PORT, () => {
+const service = server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
@@ -115,3 +116,5 @@ server.listen(PORT, () => {
 // GET read a journal entry
 // GET list of friends
 // POST add a friend
+
+serverSideWebSocket(service);

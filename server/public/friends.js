@@ -2,7 +2,8 @@ addEventListener("load", setupPage);
 let user = null;
 
 async function setupPage() {
-    await loadUser()
+    await loadUser();
+    configureWebSocket();
     displayUserName();
     displayList();
 }
@@ -54,10 +55,13 @@ async function createFriend() {
 function configureWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    this.socket.onopen = (event) => {
-        console.log("Sup")
+    this.socket.onopen = () => {
+        /*  "token=futftif67f679697f9;" */
+        authToken = document.cookie.split("=")[1];
+        this.socket.send(authToken)
     };
-    this.socket.onmessage = async (activeUser) => {
+    this.socket.onmessage = async (event) => {
+        let activeUser = event.data;
         document.querySelector("[data-username=" + activeUser + "]").className = "friend_activity_indicator active";
     };
 }
