@@ -92,6 +92,10 @@ export async function getFriends(username) {
     return user.friends;
 }
 
+export async function getFollowers(username) {
+    return await userCollection.find({ friends: username })
+}
+
 export async function deleteSession(username) {
     return await userCollection.updateOne({ username: username }, { $set: { token: null } });
 }

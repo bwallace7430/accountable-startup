@@ -75,6 +75,7 @@ apiRouter.post('/my/entries', async (req, res) => {
     let user = req.user;
     const { day, entry } = req.body;
     await data.createEntry(user.username, day, entry);
+    notifyFriends();
     res.sendStatus(200);
 });
 

@@ -1,5 +1,8 @@
 import { WebSocketServer } from 'ws';
 import * as uuid from 'uuid';
+import { getFollowers } from './data';
+
+let connections = [];
 
 export function serverSideWebSocket(httpServer) {
     const wss = new WebSocketServer({ noServer: true });
@@ -10,22 +13,14 @@ export function serverSideWebSocket(httpServer) {
         });
     });
 
-    let connections = [];
-
     wss.on('connection', (ws) => {
         const connection = { id: uuid.v4(), alive: true, ws: ws };
         connections.push(connection);
 
-        // search through all users to find the users that follow User.
-        // if any users follow User and have an open websocket, update the written status.
-        // ask Jonah how to do this
-        ws.on('message', function sendWrittenStatus(recipients, data) {
-            recipients.forEach((c) => {
-                if (c.id !== connection.id) {
-                    c.ws.send(data);
-                }
-            });
-        });
+        ws.on('message', () => { })
+        // get the data out of the websocket message (username of person connected)
+        // find websocket in connection array
+        // add the username to the connection in the connection array
 
         // Remove the closed connection so we don't try to forward anymore
         ws.on('close', () => {
@@ -53,6 +48,19 @@ export function serverSideWebSocket(httpServer) {
             }
         });
     }, 10000);
+}
+
+async function notifyFollowers(username) {
+    let followers = await getFollowers(username);
+    let followerUsernames = followers.map((follower) => follower.username)
+    // find all users that follow User
+    connections.forEach((connection) => {
+        if (followerUsernames.includes(connection.username)) {
+            connection.ws.send(username);
+        }
+    })
+    // get all connections that belong to users^^
+    // loop through sockets and send a message to all users^^
 }
 
 //TO DO : when User logs on, get the "written" status of all User's friends. when User writes
