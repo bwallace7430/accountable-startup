@@ -92,6 +92,14 @@ export async function getFriends(username) {
     return user.friends;
 }
 
+export async function getFriendsWrittenStatus(friends, day) {
+    friends_activity = []
+    for (let friend in friends) {
+        friend_data = { username: friend, active: !(!await getUserEntry(friend, day)) };
+        friends_activity.append(friend_data);
+    }
+}
+
 export async function getFollowers(username) {
     return (await userCollection.find({ friends: username })).toArray();
 }

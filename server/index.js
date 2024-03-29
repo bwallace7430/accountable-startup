@@ -90,7 +90,8 @@ apiRouter.get('/my/entries', async (req, res) => {
 apiRouter.get('/my/friends', async (req, res) => {
     let user = req.user;
     let friends = await data.getFriends(user.username);
-    res.status(200).json({ friends });
+    let friends_activiy = await data.getFriendsWrittenStatus(friends);
+    res.status(200).json({ friends_activiy });
 });
 
 apiRouter.post("/my/friends", async (req, res) => {

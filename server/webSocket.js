@@ -79,4 +79,4 @@ export async function notifyFollowers(username) {
     // loop through sockets and send a message to all users^^
 }
 
-//TO DO : when User logs on, get the "written" status of all User's friends. when User writes
+//TO DO : when User logs on, get the "written" status of all User's friends. remove console.logs()
