@@ -50,8 +50,8 @@ async function createFriend() {
         body: JSON.stringify({ friendUsername })
     })
     if (response.ok) {
-        let active_status = await response.json()
-        addFriendToDisplay(friendUsername, active_status);
+        let { friends_activity } = await response.json();
+        addFriendToDisplay(friendUsername, friends_activity[0].active);
     }
     else {
         window.alert("That friend does not exist.");

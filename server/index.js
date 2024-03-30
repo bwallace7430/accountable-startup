@@ -99,7 +99,9 @@ apiRouter.post("/my/friends", async (req, res) => {
     const { friendUsername } = req.body
     try {
         await data.addFriend(user.username, friendUsername)
-        res.sendStatus(200)
+        let day = (new Date()).toDateString();
+        let friends_activity = await data.getFriendsWrittenStatus([friendUsername], day);
+        res.status(200).json({ friends_activity });
     }
     catch {
         res.status(400).json({ message: "User does not exist." })
