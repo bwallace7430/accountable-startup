@@ -16,8 +16,6 @@ export function serverSideWebSocket(httpServer) {
 
     wss.on('connection', async (ws, request) => {
         const authToken = request.headers.cookie.split("=")[1];
-        console.log("authToken: ");
-        console.log(authToken);
 
         let user = await getUserByAuthToken(authToken);
         let username = user.username;

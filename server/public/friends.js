@@ -22,16 +22,23 @@ async function displayList() {
     if (!response.ok) {
         return
     }
-    let { friends } = await response.json();
-    for (let friend of friends) {
-        addFriendToDisplay(friend)
+    let { friends_activity } = await response.json();
+    console.log("friends are: ");
+    console.log(friends_activity);
+    for (let friend of friends_activity) {
+        addFriendToDisplay(friend.username, friend.active)
     }
 }
 
-function addFriendToDisplay(friend) {
+function addFriendToDisplay(friend, hasWritten) {
     let li = document.querySelector('#friends').appendChild(document.createElement("li"));
     let span = li.appendChild(document.createElement("span"));
-    span.className = "friend_activity_indicator inactive";
+    if (hasWritten == true) {
+        span.className = "friend_activity_indicator active";
+    }
+    else {
+        span.className = "friend_activity_indicator inactive";
+    }
     span.dataset.username = friend;
     let p = li.appendChild(document.createElement('p'));
     p.innerHTML = friend;
@@ -45,7 +52,8 @@ async function createFriend() {
         body: JSON.stringify({ friendUsername })
     })
     if (response.ok) {
-        addFriendToDisplay(friendUsername);
+        let active_status = await response.json()
+        addFriendToDisplay(friendUsername, active_status);
     }
     else {
         window.alert("That friend does not exist.");
@@ -58,10 +66,6 @@ function configureWebSocket() {
     this.socket.onopen = () => {
         /*  "token=futftif67f679697f9;" */
         authToken = document.cookie.split("=")[1];
-        console.log("cookie is: ");
-        console.log(document.cookie);
-        console.log("authToken is: ");
-        console.log(authToken);
         this.socket.send(authToken)
     };
     this.socket.onmessage = async (event) => {

@@ -84,7 +84,8 @@ export async function addFriend(username, friendUsername) {
     if (!await getUser(friendUsername)) {
         throw new Error("This user does not exist.");
     }
-    return await userCollection.updateOne({ username: username }, { $push: { friends: friendUsername } });
+    await userCollection.updateOne({ username: username }, { $push: { friends: friendUsername } });
+    return await getFriendsWrittenStatus(friendUsername, new Date())
 }
 
 export async function getFriends(username) {
@@ -93,11 +94,12 @@ export async function getFriends(username) {
 }
 
 export async function getFriendsWrittenStatus(friends, day) {
-    friends_activity = []
-    for (let friend in friends) {
-        friend_data = { username: friend, active: !(!await getUserEntry(friend, day)) };
-        friends_activity.append(friend_data);
+    let friends_activity = []
+    for (let friend of friends) {
+        let friend_data = { username: friend, active: !(!await getUserEntry(friend, day)) };
+        friends_activity.push(friend_data);
     }
+    return friends_activity
 }
 
 export async function getFollowers(username) {
