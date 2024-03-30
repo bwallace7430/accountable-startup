@@ -60,3 +60,10 @@ In this deliverable, I connected my site to a database.
 - **Existing Users:** Users can access all previous entries on the calendar day they were written for.
 - **Credential Storage:** Mongo DB stores authentication information, along with all user information and journaling entries.
 - **Functionality Restriction:** A user can only log in if they have registered, and can only journal and add friends if they've logged in.
+
+## WebSocket Deliverable
+In this deliverable I used WebSocket to create real time updates of a user's "written" status.
+- **Backend:** The backend listens for a WebSocket connection.
+- **Frontend:** The frontend makes a WebSocket connection from the "Friends" page.
+- **Data:** When a user writes in their journal, their "written" status is updated and set to all their followers.
+- **Data Displayed:** When the follower recieves the updated "written" status of a friend, the friend's active status turns from gray to green.
