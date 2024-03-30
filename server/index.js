@@ -76,7 +76,6 @@ apiRouter.post('/my/entries', async (req, res) => {
     const { day, entry } = req.body;
     await data.createEntry(user.username, day, entry);
     notifyFollowers(user.username);
-    console.log("in the post request. followers have been notified");
     res.sendStatus(200);
 });
 
@@ -90,7 +89,8 @@ apiRouter.get('/my/entries', async (req, res) => {
 apiRouter.get('/my/friends', async (req, res) => {
     let user = req.user;
     let friends = await data.getFriends(user.username);
-    let friends_activity = await data.getFriendsWrittenStatus(friends);
+    let day = (new Date()).toDateString();
+    let friends_activity = await data.getFriendsWrittenStatus(friends, day);
     res.status(200).json({ friends_activity });
 });
 

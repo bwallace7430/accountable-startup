@@ -58,23 +58,14 @@ export function serverSideWebSocket(httpServer) {
 }
 
 export async function notifyFollowers(username) {
-    console.log("username is: " + username);
     let followers = await getFollowers(username);
     let followerUsernames = followers.map((follower) => follower.username);
-    console.log("all followers: ");
-    console.log(followerUsernames);
     // find all users that follow User
-
-    console.log("all connections: ");
-    console.log(connections);
     connections.forEach((connection) => {
         if (followerUsernames.includes(connection.username)) {
             connection.ws.send(username);
-            console.log("follower has been notified.");
         }
     })
     // get all connections that belong to users^^
     // loop through sockets and send a message to all users^^
 }
-
-//TO DO : when User logs on, get the "written" status of all User's friends. remove console.logs()

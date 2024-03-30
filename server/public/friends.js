@@ -23,8 +23,6 @@ async function displayList() {
         return
     }
     let { friends_activity } = await response.json();
-    console.log("friends are: ");
-    console.log(friends_activity);
     for (let friend of friends_activity) {
         addFriendToDisplay(friend.username, friend.active)
     }
@@ -70,7 +68,6 @@ function configureWebSocket() {
     };
     this.socket.onmessage = async (event) => {
         let activeUser = event.data;
-        console.log(activeUser);
         document.querySelector("[data-username=" + activeUser + "]").className = "friend_activity_indicator active";
     };
 }
