@@ -1,19 +1,21 @@
 import React from 'react';
+import logo from '../assets/Logo.png'
+import './header.css';
 
 function Header() {
 
     return (
         <header>
-            <img class="logo_img" src="Logo.png" alt="Accountable logo" width="108" height="85" />
-            <h2 class="logo_text">Accountable</h2>
+            <img className="logo_img" src={logo} alt="Accountable logo" width="108" height="85" />
+            <h2 className="logo_text">Accountable</h2>
             |
             <nav>
                 <menu>
-                    <a class="top_nav_item" href="journal.html">Journal</a>
-                    <a class="top_nav_item" href="friends.html">Friends</a>
-                    <span class="spacer"></span>
+                    <a className="top_nav_item" href="journal.html">Journal</a>
+                    <a className="top_nav_item" href="friends.html">Friends</a>
+                    <span className="spacer"></span>
                     <span id="users_journal_tag"></span>
-                    <a class="top_nav_item log_out_button" href="index.html">Log Out</a>
+                    <a className="top_nav_item log_out_button" href="/journal">Log Out</a>
                 </menu>
             </nav>
         </header>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './login.css';
 
 function Login() {
 
@@ -7,20 +8,20 @@ function Login() {
             <h1>
                 Log In
             </h1>
-            <div class="logInFields">
-                <div class="inputBox">
+            <div className="logInFields">
+                <div className="inputBox">
                     <input type="text" id="usernameInput" placeholder="Username" />
                 </div>
-                <div class="inputBox">
-                    <label for="passwordInput">
+                <div className="inputBox">
+                    <label htmlFor="passwordInput">
                         Password:
                     </label>
                     <input type="password" id="passwordInput" placeholder="Password" />
                 </div>
             </div>
-            <div class="logInButtons">
-                <button onclick="createUser()">Create User</button>
-                <button onclick="login()">Log In</button>
+            <div className="logInButtons">
+                <button onClick="createUser()">Create User</button>
+                <button onClick="login()">Log In</button>
             </div>
             <hr />
         </main>

@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+}
+
+img {
+    padding: 1rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #0e343d;
+}
+
+h1 {
+    margin-bottom: 2rem;
+    font-size: 3rem;
+}
+
+.logInFields {
+    display: flex;
+    flex-direction: column;
+}
+
+.logInButtons {
+    display: flex;
+    flex-direction: row;
+}
+
+button {
+    background-color: #fff;
+    color: #0e343d;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    height: 50px;
+    margin: 15px;
+    border-radius: 8px;
+    border: solid;
+    box-shadow: none;
+    font-weight: bold;
+    transition-duration: 0.4s;
+    font-size: .75rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #75bba7;
+    color: #fff;
+    border: none;
+}
+
+label {
+    display: none;
+}
+
+input {
+    margin: 8px;
+    padding: 8px;
+    width: 410px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    font-size: large;
+}

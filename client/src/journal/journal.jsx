@@ -1,4 +1,5 @@
 import React from 'react';
+import './journal.css';
 
 function Journal() {
 
