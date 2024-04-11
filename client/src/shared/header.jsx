@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from '../assets/Logo.png'
+import { Link } from 'react-router-dom';
+import logo from '../assets/Logo.png';
 import './header.css';
 
 function Header() {
@@ -11,11 +12,11 @@ function Header() {
             |
             <nav>
                 <menu>
-                    <a className="top_nav_item" href="journal.html">Journal</a>
-                    <a className="top_nav_item" href="friends.html">Friends</a>
+                    <Link className="top_nav_item" to="/journal">Journal</Link>
+                    <Link className="top_nav_item" to="/friends">Friends</Link>
                     <span className="spacer"></span>
                     <span id="users_journal_tag"></span>
-                    <a className="top_nav_item log_out_button" href="/journal">Log Out</a>
+                    <Link className="top_nav_item log_out_button" to="/">Log Out</Link>
                 </menu>
             </nav>
         </header>

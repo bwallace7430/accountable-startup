@@ -11,8 +11,8 @@ import './App.css'
 
 function App() {
   return (
-    <BrowserRouter>
-      <body>
+    <body>
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route path='/' element={<Login />} />
@@ -21,8 +21,8 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
-      </body>
-    </ BrowserRouter>
+      </ BrowserRouter>
+    </body>
   );
 }
 

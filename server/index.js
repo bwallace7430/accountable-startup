@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // configure the server
 const server = express();
-const PORT = process.argv.length > 2 ? process.argv[2] : 3000;
+const PORT = process.argv.length > 2 ? process.argv[2] : 5173;
 
 server.use(express.json());
 server.use(cookieParser());
@@ -113,13 +113,5 @@ apiRouter.post("/my/friends", async (req, res) => {
 const service = server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-//ENDPOINTS:
-// POST createUSER
-// POST log in user
-// POST create journal entry
-// GET read a journal entry
-// GET list of friends
-// POST add a friend
 
 serverSideWebSocket(service);
