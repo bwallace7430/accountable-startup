@@ -12,14 +12,16 @@ import './App.css'
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/journal' element={<Journal />} />
-        <Route path='/friends' element={<Friends />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-      <Footer />
+      <body>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/journal' element={<Journal />} />
+          <Route path='/friends' element={<Friends />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </body>
     </ BrowserRouter>
   );
 }

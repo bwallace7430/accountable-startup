@@ -4,8 +4,8 @@ import './login.css';
 function Login() {
 
     return (
-        <main>
-            <h1>
+        <main className="logInMain">
+            <h1 className="logInH1">
                 Log In
             </h1>
             <div className="logInFields">

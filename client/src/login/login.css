@@ -1,24 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
-    min-height: 100vh;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-body {
-    display: flex;
-    flex-flow: column;
-}
-
-img {
-    padding: 1rem;
-}
-
-main {
+.logInMain {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +7,7 @@ main {
     color: #0e343d;
 }
 
-h1 {
+.logInH1 {
     margin-bottom: 2rem;
     font-size: 3rem;
 }
