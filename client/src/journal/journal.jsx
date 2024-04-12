@@ -74,7 +74,7 @@ function Journal() {
                     key={j}
                     href='#'
                     onClick={() => handleDayClick(j)}
-                    className={j === activeDate.getDate() ? "active_day" : ""}>
+                    className={(j === activeDate.getDate() && currDisplayedDate.getMonth() === activeDate.getMonth() && currDisplayedDate.getFullYear() === activeDate.getFullYear()) ? "active_day" : ""}>
                     {j}
                 </a>)
         }
