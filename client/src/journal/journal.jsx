@@ -50,9 +50,11 @@ function Journal() {
         let response = await fetch(`/api/my/entries?day=${date.toDateString()}`)
         let { entry } = await response.json();
         if (!entry) {
-            return;
+            setJournalEntry("");
         }
-        setJournalEntry(entry.entry)
+        else {
+            setJournalEntry(entry.entry);
+        }
     }
 
     const handleDayClick = (day) => {
@@ -97,7 +99,7 @@ function Journal() {
         await fetch(`/api/my/entries`, {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ day, journalEntry })
+            body: JSON.stringify({ day, entry: journalEntry })
         })
     }
 
