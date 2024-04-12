@@ -94,7 +94,6 @@ ul {
 }
 
 .day_names li {
-    align-self: flex-start;
     padding: 8px;
 }
 
@@ -110,22 +109,27 @@ ul {
     color: #777;
 }
 
-.active {
+.active_day {
     padding: 5px;
     background: #0e343d;
     color: white !important
 }
 
-.left_pane {
+.journal_left_pane {
     flex: 1;
 }
 
-.right_pane {
+.journal_right_pane {
     display: flex;
     flex-direction: column;
     flex: 2;
     align-items: center;
 }
+
+.journal_spacer {
+    flex: 1;
+}
+
 
 textarea {
     resize: none;

@@ -76,14 +76,14 @@ footer {
     justify-content: center;
 }
 
-ul {
+#friends {
     list-style-type: none;
     display: block;
     border-radius: 8px;
     border: solid thin rgb(0 0 0 /0.2);
 }
 
-li {
+#friends li {
     border-bottom: solid thin rgb(0 0 0 /0.2);
     padding: 10px;
     display: flex;
@@ -91,7 +91,7 @@ li {
     align-items: center;
 }
 
-li:last-of-type {
+#friends li:last-of-type {
     border-bottom: none;
 }
 
