@@ -134,7 +134,7 @@ function Journal() {
                     </ul>
                 </div>
                 <h3>Daily Quote: </h3>
-                <p id="quote">{quote}</p>
+                <p id="quote" className='journal_p'>{quote}</p>
             </div>
             <div className="journal_right_pane">
                 <label htmlFor="journalEntry">

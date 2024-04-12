@@ -71,10 +71,3 @@ function configureWebSocket() {
         document.querySelector("[data-username=" + activeUser + "]").className = "friend_activity_indicator active";
     };
 }
-
-// setInterval(() => {
-//     let inactiveFriends = document.querySelectorAll('.inactive');
-//     if (inactiveFriends.length === 0) { return; }
-//     let randomInactive = inactiveFriends.item(Math.random() * inactiveFriends.length);
-//     randomInactive.className = "friend_activity_indicator active";
-// }, 5000);
