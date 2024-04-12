@@ -67,3 +67,10 @@ In this deliverable I used WebSocket to create real time updates of a user's "wr
 - **Frontend:** The frontend makes a WebSocket connection from the "Friends" page.
 - **Data:** When a user writes in their journal, their "written" status is updated and set to all their followers.
 - **Data Displayed:** When the follower recieves the updated "written" status of a friend, the friend's active status turns from gray to green.
+
+## React Deliverable
+In this deliverable I converted to React to create a single-page application with smooth reactivity.
+- **Bundled:** The application is created and bundled using Vite.
+- **Components:** The header, footer, login, journaling page, friend page, and friend activity indicator were all components.
+- **Router:** The application uses a react router to navigate between components.
+- **Hooks** I use multiple hooks throughout my components including useState, useEffect, and useLocation.
