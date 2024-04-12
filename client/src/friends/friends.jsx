@@ -18,10 +18,8 @@ function Friends() {
         //const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
         socket.onopen = () => {
-            console.log("Socket is opening")
             const authToken = document.cookie.split("=")[1];
             socket.send(authToken);
-            console.log("AuthToken was sent.")
         };
 
         socket.onmessage = (event) => {
@@ -46,12 +44,10 @@ function Friends() {
     async function createList() {
         let response = await fetch(`/api/my/friends`);
         if (!response.ok) {
-            console.log("Problem getting friends.")
             return;
         }
         let { friends_activity } = await response.json();
         for (let friend of friends_activity) {
-            console.log("Adding friend: ", friend.username)
             editFriendList(friend.username, friend.active);
         }
     }
@@ -61,27 +57,20 @@ function Friends() {
 
         const foundFriend = friendList.find((e) => e.friend === friend);
         if (foundFriend) {
-            console.log("A friend was found")
             foundFriend.hasWritten = hasWritten;
         }
         else {
             friends.push({ friend, hasWritten });
         }
-        console.log("friends = ", friends);
         setFriendList(friends);
     }
 
     function displayFriendList(friendList) {
-        console.log("displaying friend list")
         let list = [];
-        console.log("friendList=", friendList)
         for (let friend of friendList) {
-            console.log("friend=", friend)
             let listItem = (<ActivityIndicator key={friend} friend={friend.friend} hasWritten={friend.hasWritten}></ActivityIndicator>);
             list.push(listItem);
-            console.log("friend was pushed")
         }
-        console.log("returning:", list)
         return list;
     }
 

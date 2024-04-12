@@ -9,23 +9,18 @@ export function serverSideWebSocket(httpServer) {
     const wss = new WebSocketServer({ noServer: true });
 
     httpServer.on('upgrade', (request, socket, head) => {
-        console.log("WebSocket is upgrading");
         wss.handleUpgrade(request, socket, head, function done(ws) {
             wss.emit('connection', ws, request);
         });
-        console.log("WebSocket has upgraded");
     });
 
     wss.on('connection', async (ws, request) => {
-        console.log("WebSocket is connecting")
         const authToken = request.headers.cookie.split("=")[1];
 
         let user = await getUserByAuthToken(authToken);
         let username = user.username;
-        console.log("WebSocket is connected. Username is: " + username);
         const connection = { id: uuid.v4(), alive: true, ws: ws, username: username };
         connections.push(connection);
-        console.log("Connection has been pushed.");
 
         ws.on('message', (message) => {
 

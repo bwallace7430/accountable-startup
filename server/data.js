@@ -13,7 +13,6 @@ const db = client.db('accountable');
     await client.connect();
     await db.command({ ping: 1 });
 })().catch((ex) => {
-    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
     process.exit(1);
 });
 
@@ -85,7 +84,6 @@ export async function addFriend(username, friendUsername) {
         throw new Error("This user does not exist.");
     }
     await userCollection.updateOne({ username: username }, { $push: { friends: friendUsername } });
-    console.log("in addFriend. username is: ", friendUsername);
     return await getFriendsWrittenStatus([friendUsername], (new Date()).toDateString());
 }
 
@@ -97,7 +95,6 @@ export async function getFriends(username) {
 export async function getFriendsWrittenStatus(friends, day) {
     let friends_activity = []
     for (let friend of friends) {
-        console.log("in getFriendsWrittenStatus. username is: ", friend);
         let friend_data = { username: friend, active: !!(await getUserEntry(friend, day)) };
         friends_activity.push(friend_data);
     }
