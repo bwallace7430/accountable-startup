@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // configure the server
 const server = express();
-const PORT = process.argv.length > 2 ? process.argv[2] : 5173;
+const PORT = process.argv.length > 2 ? process.argv[2] : 3000;
 
 server.use(express.json());
 server.use(cookieParser());
