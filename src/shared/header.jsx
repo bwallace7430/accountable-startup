@@ -11,7 +11,7 @@ function Header() {
 
     useEffect(() => {
         loadUser();
-    })
+    }, [])
 
     async function loadUser() {
         let response = await fetch("/api/users/me");
