@@ -5,18 +5,19 @@ import Login from './login/login'
 import Journal from './journal/journal'
 import Friends from './friends/friends'
 import Footer from './shared/footer'
+import Home from './landing/home'
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<Home />} />
         <Route path='/journal' element={<Journal />} />
         <Route path='/friends' element={<Friends />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </ BrowserRouter>
   );
 }
